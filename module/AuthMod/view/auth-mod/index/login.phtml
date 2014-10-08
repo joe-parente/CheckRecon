@@ -1,0 +1,29 @@
+<!-- h1>I am in AutoMod IndexController login action index.phtml</h1 -->
+<?php echo $this->messages; ?>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('authmod/default', array('controller' => 'index', 'action' => 'login')));
+$form->prepare();
+echo $this->form()->openTag($form);
+// echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('username'));
+echo $this->formRow($form->get('password'));
+echo $this->formRow($form->get('rememberme'));
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+?>
+<?php
+// view helper
+if ($user = $this->identity()) {
+    echo 'Logged in as ' . $this->escapeHtml($user->getUsrName());
+    ?>	
+    | <a href="<?php echo $this->url('authmod/default', array('controller' => 'index', 'action' => 'logout')); ?>"><?php echo $this->translate('Logout'); ?></a>
+    <?php
+} else {
+    echo 'Not logged in';
+}
+?>
+<p>
+    <a href="<?php echo $this->url('authmod/default', array('controller' => 'registration', 'action' => 'index')); ?>"><?php echo $this->translate('Register'); ?></a> |
+    <a href="<?php echo $this->url('authmod/default', array('controller' => 'registration', 'action' => 'forgotten-password')); ?>"><?php echo $this->translate('Forgotten Password'); ?></a>
+</p>
